@@ -7,7 +7,6 @@ const StatsSection = ({ stats, title }) => {
       elevation={3}
       sx={{ padding: "15px", backgroundColor: "#F8F9FB", mt: 4 }}
     >
-      {/* Heading for the Stats Section */}
       <Typography
         variant="h5"
         fontWeight="bold"
@@ -33,7 +32,7 @@ const StatsSection = ({ stats, title }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Light shadow for depth
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {

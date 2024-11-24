@@ -45,7 +45,7 @@ const PostList = ({ title, posts }) => {
                 backgroundColor: "#f8f8f8",
               },
               backgroundColor: "#fff",
-              width: "100%", // Ensure full width here
+              width: "100%",
             }}
           >
             <Typography variant="h6" style={{ fontWeight: 500 }}>

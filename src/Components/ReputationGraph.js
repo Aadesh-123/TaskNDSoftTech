@@ -11,13 +11,12 @@ import {
   Legend,
 } from "chart.js";
 
-// Register the required components
 ChartJS.register(
   CategoryScale,
   LinearScale,
   LineElement,
   PointElement,
-  LineController, // Register LineController
+  LineController,
   Title,
   Tooltip,
   Legend
@@ -25,19 +24,17 @@ ChartJS.register(
 
 const ReputationGraph = () => {
   const canvasRef = useRef(null);
-  const chartRef = useRef(null); // To store the chart instance
+  const chartRef = useRef(null);
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
 
-    // Destroy the previous chart instance if it exists
     if (chartRef.current) {
       chartRef.current.destroy();
     }
 
-    // Create a new chart instance
     chartRef.current = new ChartJS(ctx, {
-      type: "line", // Specify the chart type
+      type: "line",
       data: {
         labels: ["2019", "2020", "2021", "2022", "2023"],
         datasets: [
@@ -45,13 +42,13 @@ const ReputationGraph = () => {
             label: "Reputation",
             data: [500, 1000, 1500, 2200, 2500],
             borderColor: "#3f51b5",
-            backgroundColor: "rgba(63, 81, 181, 0.2)", // Subtle background fill
+            backgroundColor: "rgba(63, 81, 181, 0.2)",
             fill: true,
-            tension: 0.4, // Smooth line curve
-            pointRadius: 5, // Larger points
-            pointBackgroundColor: "#fff", // White points to contrast with the line
-            pointBorderColor: "#3f51b5", // Blue border around the points
-            pointBorderWidth: 2, // Thicker border around points
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: "#fff",
+            pointBorderColor: "#3f51b5",
+            pointBorderWidth: 2,
           },
         ],
       },
@@ -69,7 +66,7 @@ const ReputationGraph = () => {
             padding: {
               bottom: 20,
             },
-            color: "#3f51b5", // Title color
+            color: "#3f51b5",
           },
           tooltip: {
             backgroundColor: "#ffffff",
@@ -91,7 +88,7 @@ const ReputationGraph = () => {
         scales: {
           x: {
             grid: {
-              color: "#e0e0e0", // Light grid lines
+              color: "#e0e0e0",
             },
             title: {
               display: true,
@@ -105,7 +102,7 @@ const ReputationGraph = () => {
           },
           y: {
             grid: {
-              color: "#e0e0e0", // Light grid lines
+              color: "#e0e0e0",
             },
             title: {
               display: true,
@@ -118,31 +115,30 @@ const ReputationGraph = () => {
             },
             ticks: {
               beginAtZero: true,
-              stepSize: 500, // Step size for y-axis ticks
+              stepSize: 500,
             },
           },
         },
       },
     });
 
-    // Cleanup on component unmount
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
       }
     };
-  }, []); // Add dependencies here if needed
+  }, []);
 
   return (
     <div
       style={{
-        height: "350px", // Increase height for better visual clarity
-        borderRadius: "8px", // Rounded corners for the container
-        overflow: "hidden", // Hide any overflow content
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Soft shadow around the chart
-        backgroundColor: "#fff", // White background for the chart container
-        marginTop: "30px", // Space above the chart
-        padding: "20px", // Add padding inside the container for spacing
+        height: "350px",
+        borderRadius: "8px",
+        overflow: "hidden",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+        backgroundColor: "#fff",
+        marginTop: "30px",
+        padding: "20px",
       }}
     >
       <canvas ref={canvasRef}></canvas>

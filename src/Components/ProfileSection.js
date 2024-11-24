@@ -9,8 +9,8 @@ import AddPostDialog from "./AddPostDialog";
 
 const ProfileSection = () => {
   const [user, setUser] = useState(null);
-  const [questionsAnswers, setQuestionsAnswers] = useState([]); // Separate state for Questions & Answers
-  const [posts, setPosts] = useState([]); // Separate state for Posts
+  const [questionsAnswers, setQuestionsAnswers] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newPost, setNewPost] = useState({
@@ -26,7 +26,6 @@ const ProfileSection = () => {
     { label: "People Reached", value: 746 },
   ];
 
-  // Fetch user and posts data
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users/2")
@@ -37,10 +36,9 @@ const ProfileSection = () => {
       .get("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
         const posts = response.data;
-        const first10Posts = posts.slice(0, 10); // First 10 posts
-        const last10Posts = posts.slice(-10); // Last 10 posts
+        const first10Posts = posts.slice(0, 10);
+        const last10Posts = posts.slice(-10);
 
-        // Add random likes and views to both sets of posts
         const modifiedFirst10Posts = first10Posts.map((post) => ({
           ...post,
           likes: Math.floor(Math.random() * 100),
@@ -52,8 +50,8 @@ const ProfileSection = () => {
           views: Math.floor(Math.random() * 1000),
         }));
 
-        setPosts(modifiedFirst10Posts); // Save the first 10 posts
-        setQuestionsAnswers(modifiedLast10Posts); // Save the last 10 posts
+        setPosts(modifiedFirst10Posts);
+        setQuestionsAnswers(modifiedLast10Posts);
       })
       .catch((error) => console.error("Error fetching posts data:", error));
   }, []);
@@ -71,7 +69,7 @@ const ProfileSection = () => {
 
   const handleAddNewPost = () => {
     const newPostData = {
-      id: posts.length + questionsAnswers.length + 1, // Unique ID based on total posts
+      id: posts.length + questionsAnswers.length + 1,
       title: newPost.title,
       body: newPost.body,
       likes: 0,
@@ -80,10 +78,8 @@ const ProfileSection = () => {
     };
 
     if (newPost.isQuestion) {
-      // Add to questions and answers section
       setQuestionsAnswers([newPostData, ...questionsAnswers]);
     } else {
-      // Add to posts section
       setPosts([newPostData, ...posts]);
     }
 
@@ -93,7 +89,6 @@ const ProfileSection = () => {
 
   return (
     <Grid container spacing={3} sx={{ backgroundColor: "#F8F9FB" }}>
-      {/* Profile Header */}
       <Grid item xs={12}>
         <ProfileHeader user={user} />
       </Grid>
@@ -102,12 +97,10 @@ const ProfileSection = () => {
         <ReputationGraph />
       </Grid>
 
-      {/* Stats Section */}
       <Grid item xs={12} md={6}>
         <StatsSection stats={stats} />
       </Grid>
 
-      {/* Add New Post/Question Button */}
       <Grid item xs={12}>
         <Button
           variant="contained"
@@ -118,7 +111,6 @@ const ProfileSection = () => {
         </Button>
       </Grid>
 
-      {/* Filter Buttons */}
       <Grid item xs={12}>
         <Box display="flex" justifyContent="space-between">
           <Button onClick={() => setFilter("weekly")}>Weekly</Button>
@@ -128,7 +120,6 @@ const ProfileSection = () => {
         </Box>
       </Grid>
 
-      {/* Questions & Answers Section */}
       <Grid item xs={12} md={6}>
         <PostList
           title="Questions & Answers"
@@ -136,12 +127,9 @@ const ProfileSection = () => {
         />
       </Grid>
 
-      {/* Posts Section */}
       <Grid item xs={12} md={6}>
         <PostList title="Posts" posts={filterData(posts)} />
       </Grid>
-
-      {/* Add Post Dialog */}
       <AddPostDialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

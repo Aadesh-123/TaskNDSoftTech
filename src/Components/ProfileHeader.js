@@ -18,7 +18,6 @@ const ProfileHeader = ({ user }) => {
       // alignItems="center"
       // justifyContent="center"
     >
-      {/* Render the profile only if the user data is available */}
       {user && (
         <Grid
           container
@@ -29,7 +28,6 @@ const ProfileHeader = ({ user }) => {
           spacing={2}
           direction="column"
         >
-          {/* Profile Avatar and basic info */}
           <Grid item container spacing={2} alignItems="center">
             <Grid item>
               <Avatar
